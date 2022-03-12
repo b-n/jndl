@@ -1,46 +1,40 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
 
-enum Msg {
-    AddOne,
+mod pages;
+
+use pages::home::Home;
+use pages::page::Page;
+use pages::errors::NotFound;
+
+#[derive(Clone, Debug, PartialEq, Routable)]
+enum Route {
+    #[at("/")]
+    Home,
+    #[at("/page/:id")]
+    Page { id: String },
+    #[not_found]
+    #[at("/404")]
+    NotFound,
 }
 
-struct Model {
-    value: i64,
-    name: String,
+fn switch(routes: &Route) -> Html {
+    match routes {
+        Route::Home => html! { <Home /> },
+        Route::Page { id } => html! { <Page id={id.clone()}/> },
+        Route::NotFound => html! { <NotFound /> },
+    }
 }
 
-impl Component for Model {
-    type Message = Msg;
-    type Properties = ();
-
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            value: 0,
-        }
-    }
-
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::AddOne => {
-                self.value += 1;
-                true
-            }
-        }
-    }
-
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        // This gives us a component's "`Scope`" which allows us to send messages, etc to the component.
-        let link = ctx.link();
-        html! {
-            <div>
-                <button onclick={link.callback(|_| Msg::AddOne)}>{ "+1" }</button>
-                <p>{ self.value }</p>
-                <p>{ format!("Hello {}", self.name.clone()) }</p>
-            </div>
-        }
+#[function_component(App)]
+fn app() -> Html {
+    html! {
+        <BrowserRouter>
+            <Switch<Route> render={Switch::render(switch)} />
+        </BrowserRouter>
     }
 }
 
 fn main() {
-    yew::start_app::<Model>();
+    yew::start_app::<App>();
 }

@@ -1,1 +1,5 @@
+# compiled app distrubtions
+/app/dist
+
+# compiled binaries
 /target
