@@ -1,0 +1,14 @@
+[package]
+name = "jndl"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [
+  "app",
+  "db",
+]
+
+[lib]
+
+[dependencies]
