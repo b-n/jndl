@@ -2,10 +2,12 @@ use yew::prelude::{function_component, html, Html};
 use yew_router::prelude::{BrowserRouter, Routable, Switch};
 
 mod pages;
+mod lib;
 
 use pages::home::Home;
 use pages::page::Page;
 use pages::errors::NotFound;
+use lib::api::{APIProvider};
 
 #[derive(Clone, Debug, PartialEq, Routable)]
 enum Route {
@@ -29,9 +31,11 @@ fn switch(routes: &Route) -> Html {
 #[function_component(App)]
 fn app() -> Html {
     html! {
-        <BrowserRouter>
-            <Switch<Route> render={Switch::render(switch)} />
-        </BrowserRouter>
+        <APIProvider>
+            <BrowserRouter>
+                <Switch<Route> render={Switch::render(switch)} />
+            </BrowserRouter>
+        </APIProvider>
     }
 }
 
