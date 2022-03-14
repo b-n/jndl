@@ -1,5 +1,5 @@
-use yew::prelude::*;
-use yew_router::prelude::*;
+use yew::prelude::{function_component, html, Html};
+use yew_router::prelude::{BrowserRouter, Routable, Switch};
 
 mod pages;
 

@@ -1,4 +1,4 @@
-use yew::prelude::*;
+use yew::prelude::{function_component, html, Properties};
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct PageProps {
