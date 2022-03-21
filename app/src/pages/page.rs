@@ -12,10 +12,11 @@ pub fn page(props: &PageProps) -> Html {
     let id = &props.id;
     let client = use_api(); 
 
+    let page_data = client.find_page(&id);
+
     html! {
         <div>
-            <p>{ format!("Hello Jndl Page: {}", id) }</p>
-            <p>{ format!("Page retrieved from client: {}", client.find_page(&id)) }</p>
+            <p>{ format!("Page retrieved from client: {}", page_data) }</p>
         </div>
     }
 }

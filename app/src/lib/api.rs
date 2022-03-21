@@ -1,5 +1,5 @@
-use yew::{ContextProvider, Children, html, function_component, Properties, use_context};
 use core::fmt;
+use yew::{ContextProvider, Children, html, function_component, Properties, use_context};
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct ApiProviderProps {
@@ -33,9 +33,16 @@ impl fmt::Display for Page {
    }
 }
 
-#[derive(Clone, PartialEq)]
+
+#[derive(Clone)]
 pub struct API {
-    user_id: Option<String>
+    user_id: Option<String>,
+}
+
+impl PartialEq for API {
+    fn eq(&self, rhs: &Self) -> bool { 
+        self.user_id == rhs.user_id
+    }
 }
 
 impl API {
@@ -49,5 +56,15 @@ impl API {
         Page {
             id: id.to_string()
         } 
+    }
+
+    pub fn get<'a, F>(&self, uri: &'a str, callback: CallbackFn) -> Result<(), ()> 
+        where F: FnOnce()
+    {
+        let req = Request::builder()
+            .method(Method::GET)
+            .uri(uri);
+
+        self.client.request(req)
     }
 }
