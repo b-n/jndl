@@ -21,6 +21,7 @@ pub fn use_api() -> API {
     use_context::<API>().expect("no ctx found")
 }
 
+// API::Page
 pub struct Page {
     pub id: String
 }
@@ -58,13 +59,13 @@ impl API {
         } 
     }
 
-    pub fn get<'a, F>(&self, uri: &'a str, callback: CallbackFn) -> Result<(), ()> 
-        where F: FnOnce()
-    {
-        let req = Request::builder()
-            .method(Method::GET)
-            .uri(uri);
+    //pub fn get<'a, F>(&self, uri: &'a str, callback: CallbackFn) -> Result<(), ()> 
+        //where F: FnOnce()
+    //{
+        //let req = Request::builder()
+            //.method(Method::GET)
+            //.uri(uri);
 
-        self.client.request(req)
-    }
+        //self.client.request(req)
+    //}
 }

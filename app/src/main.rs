@@ -3,6 +3,7 @@ use yew_router::prelude::{BrowserRouter, Routable, Switch};
 
 mod pages;
 mod lib;
+mod components;
 
 use pages::home::Home;
 use pages::page::Page;
